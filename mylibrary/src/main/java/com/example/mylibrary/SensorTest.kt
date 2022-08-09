@@ -74,7 +74,7 @@ class SensorTest(context1: Context) : SensorEventListener  {
 
 
     fun start(){
-        Toast.makeText(context, "Service Started", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Sensor Started", Toast.LENGTH_LONG).show();
 
         powerManager = context?.getSystemService(Service.POWER_SERVICE) as PowerManager
 
@@ -108,7 +108,7 @@ class SensorTest(context1: Context) : SensorEventListener  {
         mag_manager.registerListener(this, mag_sensor, SensorManager.SENSOR_DELAY_FASTEST)
         orient_manager.registerListener(this, orient_sensor, SensorManager.SENSOR_DELAY_FASTEST)
 
-        status = false
+        status = true
 
 //        return START_REDELIVER_INTENT
 
@@ -202,10 +202,10 @@ class SensorTest(context1: Context) : SensorEventListener  {
         pressure_manager.unregisterListener(this)
         orient_manager.unregisterListener(this)
         wakeLock.release()
-        Toast.makeText(context, "Service Stopped", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Sensor Stopped", Toast.LENGTH_LONG).show()
         Log.i("HERE", "STOPPED")
 
-        status = true
+        status = false
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
@@ -270,12 +270,12 @@ class SensorTest(context1: Context) : SensorEventListener  {
                 ).format(Date())
             },${proxi},${light},${yaw},${pitch},${roll},${x},${y},${z},${pressure}"
 
-            csv(all
-            )
+            csv(all)
+
             Log.i("ALL", all)
 ////
-        csv(all)
-//        }
+
+    //        }
     }
 
 //    fun updateAll(string: String): String {

@@ -114,75 +114,6 @@ class SensorTest(context1: Context) : SensorEventListener  {
 
     }
 
-//    private var iconNotification: Bitmap? = null
-//    private var notification: Notification? = null
-//    var mNotificationManager: NotificationManager? = null
-//    private val mNotificationId = 123
-
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    private fun generateForegroundNotification() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            val intentMainLanding = Intent(this, MainActivity::class.java)
-//            val pendingIntent =
-//                PendingIntent.getActivity(this, 0, intentMainLanding, 0)
-//            iconNotification = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
-//            if (mNotificationManager == null) {
-//                mNotificationManager =
-//                    this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//            }
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                assert(mNotificationManager != null)
-//                mNotificationManager?.createNotificationChannelGroup(
-//                    NotificationChannelGroup("chats_group", "Chats")
-//                )
-//                val notificationChannel =
-//                    NotificationChannel(
-//                        "service_channel", "Service Notifications",
-//                        NotificationManager.IMPORTANCE_MIN
-//                    )
-//                notificationChannel.enableLights(false)
-//                notificationChannel.lockscreenVisibility = Notification.VISIBILITY_SECRET
-//                mNotificationManager?.createNotificationChannel(notificationChannel)
-//            }
-//            builder = NotificationCompat.Builder(this, "service_channel")
-//            builder.setContentTitle(
-////                StringBuilder(resources.getString(R.string.app_name)).append(" service is running")
-//                    .toString()
-//            )
-//                .setTicker(
-//                    StringBuilder(resources.getString(R.string.app_name)).append("service is running")
-//                        .toString()
-//                )
-//                .setContentText("Touch to open") //                    , swipe down for more options.
-////                .setSmallIcon(R.drawable.jupiter)
-//                .setPriority(NotificationCompat.PRIORITY_LOW)
-//                .setWhen(0)
-//                .setOnlyAlertOnce(true)
-//                .setContentIntent(pendingIntent)
-//                .setOngoing(true)
-//            if (iconNotification != null) {
-//                builder.setLargeIcon(Bitmap.createScaledBitmap(iconNotification!!, 128, 128, false))
-//            }
-//
-//            notification = builder.build()
-//            startForeground(mNotificationId, notification)
-//
-//        }
-//    }
-//
-//
-//        override fun onDestroy() {
-//            light_manager.unregisterListener(this)
-//            proxi_manager.unregisterListener(this)
-//            wakeLock.release()
-//            Toast.makeText(context, "Service Stopped", Toast.LENGTH_LONG).show()
-//            Log.i("HERE","STOPPED")
-//
-//            super.onDestroy()
-//
-//        }
-
-
     fun csv(str: String) {
         try {
             fileOutputStream =
@@ -215,7 +146,9 @@ class SensorTest(context1: Context) : SensorEventListener  {
 
 //            pressure_text.text = pressure.toString()
 
-
+//      x = gps altitude
+//      y = pressure
+//      y=f(x)
 
         }
 
@@ -263,12 +196,8 @@ class SensorTest(context1: Context) : SensorEventListener  {
 
         }
 
-        all = "${System.currentTimeMillis()},${
-                SimpleDateFormat(
-                    "HH",
-                    Locale.US
-                ).format(Date())
-            },${proxi},${light},${yaw},${pitch},${roll},${x},${y},${z},${pressure}"
+        all = "${System.currentTimeMillis()},${SimpleDateFormat("HH", Locale.US).format(Date())}," +
+                "${proxi},${light},${yaw},${pitch},${roll},${x},${y},${z},${pressure}"
 
             csv(all)
 

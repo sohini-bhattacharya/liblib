@@ -8,7 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
-class PermissionTest: AppCompatActivity() {
+class PermissionTest(context1: Context, activity1: AppCompatActivity) {
     lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var ForegroundPermission = false
     var WakePermission = false
@@ -22,10 +22,13 @@ class PermissionTest: AppCompatActivity() {
     var BLEConnect = false
     var BLEAdmin = false
     var BLE = false
-//    var context: Context = context1
+    var context: Context = context1
+
+    var activity: AppCompatActivity = activity1
 
     fun getPermissions(){
-        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+        permissionLauncher =
+            activity?.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 BLE = permissions[Manifest.permission.BLUETOOTH] ?: BLE
                 BLEScan = permissions[Manifest.permission.BLUETOOTH_SCAN] ?: BLEScan
                 BLEAdvert = permissions[Manifest.permission.BLUETOOTH_ADVERTISE] ?: BLEAdvert
@@ -38,47 +41,47 @@ class PermissionTest: AppCompatActivity() {
                 WakePermission = permissions[Manifest.permission.WAKE_LOCK] ?: WakePermission
                 WritePermission = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: WritePermission
                 ReadPermission = permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: ReadPermission
-            }
+            }!!
         requestPermission()
     }
 
     private fun requestPermission(){
 
 
-        BLE = ContextCompat.checkSelfPermission(this,
+        BLE = ContextCompat.checkSelfPermission(context,
             Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED
 
-        BLEScan = ContextCompat.checkSelfPermission(this,
+        BLEScan = ContextCompat.checkSelfPermission(context,
             Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED
 
-        BLEAdvert = ContextCompat.checkSelfPermission(this,
+        BLEAdvert = ContextCompat.checkSelfPermission(context,
             Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED
 
-        BLEConnect = ContextCompat.checkSelfPermission(this,
+        BLEConnect = ContextCompat.checkSelfPermission(context,
             Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED
 
-        BLEAdmin = ContextCompat.checkSelfPermission(this,
+        BLEAdmin = ContextCompat.checkSelfPermission(context,
             Manifest.permission.BLUETOOTH_ADMIN) == PackageManager.PERMISSION_GRANTED
 
-        ForegroundPermission = ContextCompat.checkSelfPermission(this,
+        ForegroundPermission = ContextCompat.checkSelfPermission(context,
             Manifest.permission.FOREGROUND_SERVICE) == PackageManager.PERMISSION_GRANTED
 
-        WakePermission = ContextCompat.checkSelfPermission(this,
+        WakePermission = ContextCompat.checkSelfPermission(context,
             Manifest.permission.WAKE_LOCK) == PackageManager.PERMISSION_GRANTED
 
-        FineLocation = ContextCompat.checkSelfPermission(this,
+        FineLocation = ContextCompat.checkSelfPermission(context,
             Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
-        Internet = ContextCompat.checkSelfPermission(this,
+        Internet = ContextCompat.checkSelfPermission(context,
             Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED
 
-        WritePermission = ContextCompat.checkSelfPermission(this,
+        WritePermission = ContextCompat.checkSelfPermission(context,
             Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
-        ReadPermission = ContextCompat.checkSelfPermission(this,
+        ReadPermission = ContextCompat.checkSelfPermission(context,
             Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
-        CoarseLocation = ContextCompat.checkSelfPermission(this,
+        CoarseLocation = ContextCompat.checkSelfPermission(context,
             Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
         val permissionsRequest : MutableList<String> = ArrayList()

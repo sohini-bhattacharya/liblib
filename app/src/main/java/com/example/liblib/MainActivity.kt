@@ -11,10 +11,7 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.example.mylibrary.ActivityTest
-import com.example.mylibrary.BLETest
-import com.example.mylibrary.PredictTest
-import com.example.mylibrary.SensorTest
+import com.example.mylibrary.*
 import kotlin.properties.Delegates
 
 
@@ -25,7 +22,9 @@ class MainActivity : AppCompatActivity() {
 //    lateinit var s: SensorTest
 //    lateinit var b: BLETest
 //    lateinit var a: ActivityTest
-    lateinit var p: PredictTest
+//    lateinit var p: PredictTest
+//    lateinit var pe: PermissionTest
+    lateinit var w: WifiTest
 
     lateinit var button: Switch
 
@@ -75,7 +74,11 @@ class MainActivity : AppCompatActivity() {
 
 //        a = ActivityTest(this)
 
-        p = PredictTest(this)
+//        p = PredictTest(this)
+
+//        pe = PermissionTest(this, this)
+
+        w = WifiTest(this)
 
         requestPermission()
 
@@ -86,8 +89,8 @@ class MainActivity : AppCompatActivity() {
 //                    a.start()
 //                    s.start()
 //                    b.start()
-                    p.start()
-                    text.text = p.getStatus()
+                    w.start()
+                    text.text = w.getStatus()
 
 
                 } else {
@@ -98,8 +101,8 @@ class MainActivity : AppCompatActivity() {
 //                b.stop()
 
 //                a.stop()
-                p.stop()
-                text.text = p.getStatus()
+                w.stop()
+                text.text = w.getStatus()
 //                deregisterForUpdates()
             }
         }

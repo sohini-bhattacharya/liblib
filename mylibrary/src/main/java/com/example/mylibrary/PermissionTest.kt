@@ -8,7 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
-class PermissionTest(context1: Context, activity1: AppCompatActivity) {
+class PermissionTest(context1: Context) {
     lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var ForegroundPermission = false
     var WakePermission = false
@@ -24,11 +24,11 @@ class PermissionTest(context1: Context, activity1: AppCompatActivity) {
     var BLE = false
     var context: Context = context1
 
-    var activity: AppCompatActivity = activity1
+//    var activity: AppCompatActivity = activity1
 
-    fun getPermissions(){
+    fun getPermissions(activity1: AppCompatActivity){
         permissionLauncher =
-            activity?.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            activity1?.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 BLE = permissions[Manifest.permission.BLUETOOTH] ?: BLE
                 BLEScan = permissions[Manifest.permission.BLUETOOTH_SCAN] ?: BLEScan
                 BLEAdvert = permissions[Manifest.permission.BLUETOOTH_ADVERTISE] ?: BLEAdvert

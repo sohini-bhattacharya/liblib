@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 //    lateinit var b: BLETest
 //    lateinit var a: ActivityTest
 //    lateinit var p: PredictTest
-//    lateinit var pe: PermissionTest
+    lateinit var pe: PermissionTest
     lateinit var w: WifiTest
 
     lateinit var button: Switch
@@ -76,11 +76,11 @@ class MainActivity : AppCompatActivity() {
 
 //        p = PredictTest(this)
 
-//        pe = PermissionTest(this, this)
+        pe = PermissionTest(this)
 
         w = WifiTest(this)
 
-        requestPermission()
+        pe.getPermissions(this)
 
         button.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {

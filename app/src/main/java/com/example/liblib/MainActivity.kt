@@ -11,7 +11,9 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.example.mylibrary.ActivityTest
 import com.example.mylibrary.BLETest
+import com.example.mylibrary.PredictTest
 import com.example.mylibrary.SensorTest
 import kotlin.properties.Delegates
 
@@ -20,13 +22,16 @@ class MainActivity : AppCompatActivity() {
 
 
     lateinit var text: TextView
-    lateinit var s: SensorTest
-    lateinit var b: BLETest
+//    lateinit var s: SensorTest
+//    lateinit var b: BLETest
+//    lateinit var a: ActivityTest
+    lateinit var p: PredictTest
 
     lateinit var button: Switch
 
     lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var ForegroundPermission = false
+    var ActivityPermission = false
     var WakePermission = false
     var WritePermission = false
     var ReadPermission = false
@@ -61,11 +66,16 @@ class MainActivity : AppCompatActivity() {
                 WakePermission = permissions[Manifest.permission.WAKE_LOCK] ?: WakePermission
                 WritePermission = permissions[Manifest.permission.WRITE_EXTERNAL_STORAGE] ?: WritePermission
                 ReadPermission = permissions[Manifest.permission.READ_EXTERNAL_STORAGE] ?: ReadPermission
+                ActivityPermission = permissions[Manifest.permission.ACTIVITY_RECOGNITION] ?: ActivityPermission
             }
 
-        s = SensorTest(this)
+//        s = SensorTest(this)
+//
+//        b = BLETest(this)
 
-        b = BLETest(this)
+//        a = ActivityTest(this)
+
+        p = PredictTest(this)
 
         requestPermission()
 
@@ -73,19 +83,23 @@ class MainActivity : AppCompatActivity() {
             if (isChecked) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
                 ) {
-                    s.start()
-                    b.start()
-                    text.text = s.status.toString()
+//                    a.start()
+//                    s.start()
+//                    b.start()
+                    p.start()
+                    text.text = p.getStatus()
 
 
                 } else {
 //                    requestForUpdates()
                 }
             } else {
-                s.stop()
-                b.stop()
+//                s.stop()
+//                b.stop()
 
-                text.text = s.status.toString()
+//                a.stop()
+                p.stop()
+                text.text = p.getStatus()
 //                deregisterForUpdates()
             }
         }
@@ -94,6 +108,7 @@ class MainActivity : AppCompatActivity() {
 //        s.stop(this)
 
     }
+
 
     private fun requestPermission(){
 
@@ -133,6 +148,9 @@ class MainActivity : AppCompatActivity() {
 
         CoarseLocation = ContextCompat.checkSelfPermission(this,
             Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+
+        ActivityPermission = ContextCompat.checkSelfPermission(this,
+            Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED
 
         val permissionsRequest : MutableList<String> = ArrayList()
 
@@ -182,6 +200,10 @@ class MainActivity : AppCompatActivity() {
         if(!FineLocation){
             permissionsRequest.add(Manifest.permission.ACCESS_FINE_LOCATION)
         }
+
+        if(!ActivityPermission){
+            permissionsRequest.add(Manifest.permission.ACTIVITY_RECOGNITION)
+    }
 
         if(permissionsRequest.isNotEmpty()){
             permissionLauncher.launch(permissionsRequest.toTypedArray())

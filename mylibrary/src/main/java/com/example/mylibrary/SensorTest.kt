@@ -1,5 +1,6 @@
 package com.example.mylibrary
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Context.SENSOR_SERVICE
@@ -16,8 +17,6 @@ import android.os.IBinder
 import android.os.PowerManager
 import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStreamWriter
@@ -28,6 +27,7 @@ import java.util.*
 
 //import androidx.core.content.ContextCompat.getSystemService
 
+@SuppressLint("NewApi")
 class SensorTest(context1: Context) : SensorEventListener  {
     lateinit var outputWriter: OutputStreamWriter
     lateinit var fileOutputStream: FileOutputStream
@@ -139,6 +139,7 @@ class SensorTest(context1: Context) : SensorEventListener  {
         status = false
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onSensorChanged(event: SensorEvent?) {
 
         if (event?.sensor?.type == Sensor.TYPE_PRESSURE) {
@@ -199,9 +200,9 @@ class SensorTest(context1: Context) : SensorEventListener  {
         all = "${System.currentTimeMillis()},${SimpleDateFormat("HH", Locale.US).format(Date())}," +
                 "${proxi},${light},${yaw},${pitch},${roll},${x},${y},${z},${pressure}"
 
-            csv(all)
+        csv(all)
 
-            Log.i("ALL", all)
+        Log.i("ALL", all)
 ////
 
     //        }

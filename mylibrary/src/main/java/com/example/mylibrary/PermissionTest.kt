@@ -22,6 +22,8 @@ class PermissionTest(context1: Context, activity1: AppCompatActivity) {
     var BLEConnect = false
     var BLEAdmin = false
     var BLE = false
+    var StatePermission = false
+
     var context: Context = context1
 
     var activity: AppCompatActivity = activity1
@@ -29,6 +31,7 @@ class PermissionTest(context1: Context, activity1: AppCompatActivity) {
     fun getPermissions(){
         permissionLauncher =
             activity?.registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                StatePermission = permissions[Manifest.permission.READ_PHONE_STATE] ?: StatePermission
                 BLE = permissions[Manifest.permission.BLUETOOTH] ?: BLE
                 BLEScan = permissions[Manifest.permission.BLUETOOTH_SCAN] ?: BLEScan
                 BLEAdvert = permissions[Manifest.permission.BLUETOOTH_ADVERTISE] ?: BLEAdvert
@@ -47,6 +50,8 @@ class PermissionTest(context1: Context, activity1: AppCompatActivity) {
 
     private fun requestPermission(){
 
+        StatePermission = ContextCompat.checkSelfPermission(context,
+            Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
 
         BLE = ContextCompat.checkSelfPermission(context,
             Manifest.permission.BLUETOOTH) == PackageManager.PERMISSION_GRANTED
@@ -85,6 +90,10 @@ class PermissionTest(context1: Context, activity1: AppCompatActivity) {
             Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
         val permissionsRequest : MutableList<String> = ArrayList()
+
+        if(!StatePermission){
+            permissionsRequest.add(Manifest.permission.READ_PHONE_STATE)
+        }
 
         if(!BLE){
             permissionsRequest.add(Manifest.permission.BLUETOOTH)

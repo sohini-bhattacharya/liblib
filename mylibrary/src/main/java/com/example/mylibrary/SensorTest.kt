@@ -42,6 +42,8 @@ class SensorTest(context1: Context) : SensorEventListener  {
     var y = 0.0f
     var z = 0.0f
 
+    var csv: CSVTest = CSVTest(context)
+
     //    private lateinit var text: TextView
     var status: Boolean = false
     var all: String = "h"
@@ -73,7 +75,7 @@ class SensorTest(context1: Context) : SensorEventListener  {
 //    lateinit var builder: NotificationCompat.Builder
 
 
-    fun start(){
+    fun getSensor(){
         Toast.makeText(context, "Sensor Started", Toast.LENGTH_LONG).show();
 
         powerManager = context?.getSystemService(Service.POWER_SERVICE) as PowerManager
@@ -114,17 +116,17 @@ class SensorTest(context1: Context) : SensorEventListener  {
 
     }
 
-    fun csv(str: String) {
-        try {
-            fileOutputStream =
-                context.applicationContext.openFileOutput("TEST123.txt", Context.MODE_APPEND)
-            outputWriter = OutputStreamWriter(fileOutputStream)
-            outputWriter.write(str + "\n")
-            outputWriter.close()
-
-        } catch (e: IOException) {
-        }
-    }
+//    fun csv(str: String) {
+//        try {
+//            fileOutputStream =
+//                context.applicationContext.openFileOutput("TEST123.txt", Context.MODE_APPEND)
+//            outputWriter = OutputStreamWriter(fileOutputStream)
+//            outputWriter.write(str + "\n")
+//            outputWriter.close()
+//
+//        } catch (e: IOException) {
+//        }
+//    }
 
     fun stop(){
         light_manager.unregisterListener(this)
@@ -200,7 +202,7 @@ class SensorTest(context1: Context) : SensorEventListener  {
         all = "${System.currentTimeMillis()},${SimpleDateFormat("HH", Locale.US).format(Date())}," +
                 "${proxi},${light},${yaw},${pitch},${roll},${x},${y},${z},${pressure}"
 
-        csv(all)
+        csv.record(all,"SENSOR")
 
         Log.i("ALL", all)
 ////

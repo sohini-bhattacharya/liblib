@@ -28,6 +28,8 @@ class PredictTest(context1: Context): SensorEventListener {
     var status: Boolean = false
     var hour: Float = 0.0f
 
+    var csv: CSVTest = CSVTest(context)
+
     private lateinit var light_manager: SensorManager
     private var light_sensor: Sensor? = null
 
@@ -40,7 +42,7 @@ class PredictTest(context1: Context): SensorEventListener {
     var tflite: Interpreter? = null
     var prediction: Int = 0
 
-    fun start(){
+    fun getPrediction(){
         light_manager = context?.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
         light_sensor = light_manager!!.getDefaultSensor(Sensor.TYPE_LIGHT)
 
@@ -98,17 +100,17 @@ class PredictTest(context1: Context): SensorEventListener {
         return output[0][0]
     }
 
-    fun csv(str: String) {
-        try {
-            fileOutputStream =
-                context.applicationContext.openFileOutput("TEST123.txt", Context.MODE_APPEND)
-            outputWriter = OutputStreamWriter(fileOutputStream)
-            outputWriter.write(str + "\n")
-            outputWriter.close()
-
-        } catch (e: IOException) {
-        }
-    }
+//    fun csv(str: String) {
+//        try {
+//            fileOutputStream =
+//                context.applicationContext.openFileOutput("TEST123.txt", Context.MODE_APPEND)
+//            outputWriter = OutputStreamWriter(fileOutputStream)
+//            outputWriter.write(str + "\n")
+//            outputWriter.close()
+//
+//        } catch (e: IOException) {
+//        }
+//    }
 
 
 
@@ -127,7 +129,6 @@ class PredictTest(context1: Context): SensorEventListener {
 
 
             Log.v("LIGHT", "${System.currentTimeMillis()},${light}")
-//            csvlight("${System.currentTimeMillis()},${light}")
 
 
         }
@@ -143,7 +144,6 @@ class PredictTest(context1: Context): SensorEventListener {
             }
 
             Log.v("PROXI", "${System.currentTimeMillis()},${proxi}")
-//            csvproxi("${System.currentTimeMillis()},${proxi}")
 
 
         }
@@ -158,7 +158,7 @@ class PredictTest(context1: Context): SensorEventListener {
             } else{
                 "INDOOR"
             }
-            csv(final)
+            csv.record(final,"PREDICT")
             Log.i("here","here again here")
 
             Log.i("final","${final}, ${prediction}")

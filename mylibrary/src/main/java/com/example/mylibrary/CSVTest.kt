@@ -11,7 +11,7 @@ class CSVTest(context1: Context ) {
     lateinit var fileOutputStream: FileOutputStream
     lateinit var outputWriter: OutputStreamWriter
 
-    fun csv(data: String, name: String) {
+    fun record(data: String, name: String) {
         try {
             fileOutputStream =
                 context.applicationContext.openFileOutput("$name.txt", Context.MODE_APPEND)

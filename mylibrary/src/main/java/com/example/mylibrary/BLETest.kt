@@ -26,11 +26,13 @@ class BLETest(context1: Context) {
     lateinit var outputWriter: OutputStreamWriter
     var status: Boolean = false
 
+    var csv: CSVTest = CSVTest(context)
+
     private val bluetoothAdapter: BluetoothAdapter by lazy {
         (context?.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
     }
 
-    fun start() {
+    fun getBLE() {
         startBLEScan()
 
         Toast.makeText(context, "BLE Started", Toast.LENGTH_LONG).show();
@@ -61,7 +63,7 @@ class BLETest(context1: Context) {
                     val entry = "${bluetoothDevice.name},${bluetoothDevice.address},${bluetoothDevice.uuids}"+ "," + SimpleDateFormat("HH:mm:ss", Locale.US).format(
                         Date()
                     )
-                    csv("$entry"+","+ SimpleDateFormat("HH:mm:ss", Locale.US).format(Date()))
+                    csv.record("$entry"+","+ SimpleDateFormat("HH:mm:ss", Locale.US).format(Date()),"BLE")
                     Log.i(
                         "BACK","${bluetoothDevice.name} | ${bluetoothDevice.address} | ${bluetoothDevice.uuids}"+ " | " + SimpleDateFormat("HH:mm:ss", Locale.US).format(
                             Date()
@@ -107,17 +109,17 @@ class BLETest(context1: Context) {
 
     }
 
-    private fun csv(str:String) {
-        try {
-            fileOutputStream = context.applicationContext.openFileOutput("TEST10.txt", Context.MODE_APPEND)
-            outputWriter = OutputStreamWriter(fileOutputStream)
-            outputWriter.write(str+"\n")
-            outputWriter.close()
-
-        } catch (e: IOException) {
-
-        }
-    }
+//    private fun csv(str:String) {
+//        try {
+//            fileOutputStream = context.applicationContext.openFileOutput("TEST10.txt", Context.MODE_APPEND)
+//            outputWriter = OutputStreamWriter(fileOutputStream)
+//            outputWriter.write(str+"\n")
+//            outputWriter.close()
+//
+//        } catch (e: IOException) {
+//
+//        }
+//    }
 
     private fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_LONG)

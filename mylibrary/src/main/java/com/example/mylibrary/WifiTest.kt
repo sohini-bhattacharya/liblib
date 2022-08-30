@@ -26,9 +26,11 @@ class WifiTest(context1: Context) {
     lateinit var outputWriter: OutputStreamWriter
     private lateinit var wifiLock: WifiManager.WifiLock
 
+    var csv: CSVTest = CSVTest(context)
+
     var status: Boolean = false
 
-    fun start(){
+    fun getWifi(){
         wifiManager = context?.getSystemService(Service.WIFI_SERVICE) as WifiManager
         wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, "myId")
         wifiLock.acquire()
@@ -66,9 +68,9 @@ class WifiTest(context1: Context) {
         for(result in resultList){
             var text = "${result.SSID} + ${result.BSSID} + ${result.capabilities} + ${result.timestamp}"
 
-            csv("${result.SSID},${result.BSSID},${result.capabilities}"+","+ SimpleDateFormat("HH:mm:ss", Locale.US).format(
+            csv.record("${result.SSID},${result.BSSID},${result.capabilities}"+","+ SimpleDateFormat("HH:mm:ss", Locale.US).format(
                 Date()
-            ))
+            ),"WIFI")
             Log.i("BACK","${result.SSID},${result.BSSID},${result.capabilities}")}
         Thread.sleep(5000)
         wifiManager.startScan()
@@ -92,17 +94,6 @@ class WifiTest(context1: Context) {
 
     }
 
-    private fun csv(str:String) {
-        try {
-            fileOutputStream = context.applicationContext.openFileOutput("TEST7.txt", Context.MODE_APPEND)
-            outputWriter = OutputStreamWriter(fileOutputStream)
-            outputWriter.write(str+"\n")
-            outputWriter.close()
-
-        } catch (e: IOException) {
-
-        }
-    }
 
     fun getStatus(): String {
         return status.toString()

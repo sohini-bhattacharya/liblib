@@ -12,6 +12,7 @@ import com.google.android.gms.location.ActivityRecognitionClient
 class ActivityTest(context1: Context) {
     var context: Context = context1
     lateinit var client: ActivityRecognitionClient
+    var csv: CSVTest = CSVTest(context)
 
     var status = false
 

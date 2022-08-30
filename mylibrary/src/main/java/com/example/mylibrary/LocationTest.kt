@@ -32,7 +32,7 @@ class LocationTest(context1: Context, activity1: AppCompatActivity) {
 
     var csv: CSVTest = CSVTest(context)
 
-    private fun isLocationEnabled(): Boolean {
+    fun isLocationEnabled(): Boolean {
         val manager: LocationManager = context?.getSystemService(LOCATION_SERVICE) as LocationManager
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
         {
@@ -45,7 +45,7 @@ class LocationTest(context1: Context, activity1: AppCompatActivity) {
     }
 
     @SuppressLint("MissingPermission")
-    private fun getCurrentLocation(){
+    fun getCurrentLocation(){
 
 
         if(isLocationEnabled()) {

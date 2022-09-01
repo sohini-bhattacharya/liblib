@@ -21,10 +21,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var text: TextView
 //    lateinit var s: SensorTest
 //    lateinit var b: BLETest
-//    lateinit var a: ActivityTest
+    lateinit var a: ActivityTest
 //    lateinit var p: PredictTest
     lateinit var pe: PermissionTest
-    lateinit var w: WifiTest
+//    lateinit var w: WifiTest
 
     lateinit var button: Switch
 //
@@ -76,9 +76,10 @@ class MainActivity : AppCompatActivity() {
 
 //        p = PredictTest(this)
 
+
         pe = PermissionTest(applicationContext,this)
 
-        w = WifiTest(this)
+        a = ActivityTest(this)
 
 //        requestPermission()
 
@@ -88,11 +89,11 @@ class MainActivity : AppCompatActivity() {
             if (isChecked) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
                 ) {
-//                    a.start()
+                    a.start()
 //                    s.start()
 //                    b.start()
-                    w.start()
-                    text.text = w.getStatus()
+//                    w.start()
+                    text.text = a.getStatus()
 
 
                 } else {
@@ -102,9 +103,9 @@ class MainActivity : AppCompatActivity() {
 //                s.stop()
 //                b.stop()
 
-//                a.stop()
-                w.stop()
-                text.text = w.getStatus()
+                a.stop()
+//                w.stop()
+                text.text = a.getStatus()
 //                deregisterForUpdates()
             }
         }

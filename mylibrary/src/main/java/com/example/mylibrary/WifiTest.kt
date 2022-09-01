@@ -72,7 +72,7 @@ class WifiTest(context1: Context) {
                 Date()
             ),"WIFI")
             Log.i("BACK","${result.SSID},${result.BSSID},${result.capabilities}")}
-        Thread.sleep(5000)
+        Thread.sleep(10000)
         wifiManager.startScan()
 
     }
@@ -82,7 +82,7 @@ class WifiTest(context1: Context) {
         @Suppress("DEPRECATION")
         val results = wifiManager.scanResults
 //        Log.i("TAG","$results")
-        Thread.sleep(5000)
+        Thread.sleep(10000)
         wifiManager.startScan()
 
     }

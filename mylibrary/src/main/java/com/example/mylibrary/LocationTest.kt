@@ -59,18 +59,18 @@ class LocationTest(context1: Context, activity1: AppCompatActivity) {
 //                    Toast.makeText(context,"Success LOC", Toast.LENGTH_SHORT).show()
 
                     loc = location.toString()
-                    Log.i("TAG","$location")
-                    Log.i("TAG","${location.latitude}")
-                    Log.i("TAG","${location.longitude}")
-                    Log.i("TAG","${location.altitude}")
-                    Log.i("TAG","${location.bearing}")
+                    Log.i("LOCATION","$location")
+                    Log.i("LOCATION","${location.latitude}")
+                    Log.i("LOCATION","${location.longitude}")
+                    Log.i("LOCATION","${location.altitude}")
+                    Log.i("LOCATION","${location.bearing}")
 
                     latitude = location.latitude.toString()
                     longitude = location.longitude.toString()
                     altitude = location.altitude.toString()
                     bearing = location.bearing.toString()
 
-                    csv.record("$location","LOCATION")
+                    csv.record("$latitude,$longitude,$altitude,$bearing","LOCATION")
 
                 }
 

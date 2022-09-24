@@ -28,6 +28,7 @@ class PredictTest(context1: Context): SensorEventListener {
     var status: Boolean = false
     var hour: Float = 0.0f
 
+    var final: String = "INDOOR"
     var csv: CSVTest = CSVTest(context)
 
     private lateinit var light_manager: SensorManager
@@ -148,7 +149,7 @@ class PredictTest(context1: Context): SensorEventListener {
 
         }
         if(status) {
-            var final = "INDOOR"
+            final = "INDOOR"
 
             Log.i("here","here")
             val prediction = useModel(0.0f,light,proxi)

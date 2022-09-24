@@ -99,7 +99,6 @@ class BLETest(context1: Context) {
 
         bluetoothAdapter!!.bluetoothLeScanner.startScan(scanFilters,scanSettings,bleScanCallback)
 
-
         Log.v("BACK", "Start Scan2")
     }
 

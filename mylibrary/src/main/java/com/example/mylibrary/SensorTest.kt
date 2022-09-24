@@ -52,6 +52,7 @@ class SensorTest(context1: Context) : SensorEventListener  {
 //        all = newValue
 //    }
 
+
     private lateinit var powerManager: PowerManager
     private lateinit var wakeLock: PowerManager.WakeLock
 

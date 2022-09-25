@@ -28,7 +28,7 @@ class PredictTest(context1: Context): SensorEventListener {
     var status: Boolean = false
     var hour: Float = 0.0f
 
-    var final: String = "INDOOR"
+    var final: String = "OUTDOOR"
     var csv: CSVTest = CSVTest(context)
 
     private lateinit var light_manager: SensorManager

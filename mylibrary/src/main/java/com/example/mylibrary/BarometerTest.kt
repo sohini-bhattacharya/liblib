@@ -19,14 +19,36 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.location.LocationManagerCompat.getCurrentLocation
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import org.tensorflow.lite.Interpreter
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
+import java.nio.MappedByteBuffer
+import java.nio.channels.FileChannel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEventListener {
 
     lateinit var outputWriter: OutputStreamWriter
     lateinit var fileOutputStream: FileOutputStream
+
     var context: Context = context1
+
+    var light: Float = 0.0f
+    var proxi: Float = 0.0f
+    var hour: Float = 0.0f
+
+    var final: String = "OUTDOOR"
+
+    private lateinit var light_manager: SensorManager
+    private var light_sensor: Sensor? = null
+
+    private lateinit var proxi_manager: SensorManager
+    private var proxi_sensor: Sensor? = null
+
+    var tflite: Interpreter? = null
+    var prediction: Int = 0
 
     var roll = 0.0f
     var yaw = 0.0f
@@ -43,8 +65,6 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
 
     var iobar: Int = 0
 
-    lateinit var iotest: PredictTest
-
     var activity: Activity = activity1
 
     var fusedLocationProviderClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity)
@@ -52,14 +72,8 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
     private lateinit var powerManager: PowerManager
     private lateinit var wakeLock: PowerManager.WakeLock
 
-    private lateinit var mag_manager: SensorManager
-    private var mag_sensor: Sensor? = null
-
-    private lateinit var mag_uncal_manager : SensorManager
-    private var mag_uncal_sensor: Sensor? = null
-
-    private lateinit var orient_manager: SensorManager
-    private var orient_sensor: Sensor? = null
+    private lateinit var pressure_manager: SensorManager
+    private var pressure_sensor: Sensor? = null
 
     var csv: CSVTest = CSVTest(context)
 
@@ -69,8 +83,6 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
 
     @SuppressLint("MissingPermission")
     fun getBarometer() {
-
-        iotest = PredictTest(context)
 
         Toast.makeText(context, "Sensor Started", Toast.LENGTH_LONG).show();
 
@@ -82,22 +94,175 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
         )
         wakeLock.acquire()
 
-        mag_manager = context.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
-        mag_sensor = mag_manager!!.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
+        pressure_manager = context.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        pressure_sensor = pressure_manager!!.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
 
-        mag_uncal_manager = context.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
-        mag_uncal_sensor = mag_manager!!.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED)
+        light_manager = context?.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        light_sensor = light_manager!!.getDefaultSensor(Sensor.TYPE_LIGHT)
 
-        orient_manager = context?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        orient_sensor = orient_manager!!.getDefaultSensor(Sensor.TYPE_ORIENTATION)
+        proxi_manager = context?.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        proxi_sensor = proxi_manager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
 
-        mag_manager.registerListener(this, mag_sensor, SensorManager.SENSOR_DELAY_FASTEST)
-        mag_uncal_manager.registerListener(this, mag_uncal_sensor, SensorManager.SENSOR_DELAY_FASTEST)
-        orient_manager.registerListener(this, orient_sensor, SensorManager.SENSOR_DELAY_FASTEST)
+        light_manager.registerListener(this, light_sensor, SensorManager.SENSOR_DELAY_FASTEST)
+        proxi_manager.registerListener(this, proxi_sensor, SensorManager.SENSOR_DELAY_FASTEST)
 
-        status = true
+
+//        status = true
+
+        getPrediction()
 
     }
+
+    fun getPrediction(){
+
+
+        try{
+            Log.i("here","howyadoing")
+            tflite = Interpreter(loadModel())
+        }
+        catch (ex: java.lang.Exception){
+            ex.printStackTrace()
+        }
+
+        status = true
+    }
+
+    private fun loadModel(): MappedByteBuffer {
+        val fileDescriptor = context.assets.openFd("logistic.tflite")
+
+        val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
+
+        val fileChannel = inputStream.channel
+
+        val start = fileDescriptor.startOffset
+
+        val end = fileDescriptor.declaredLength
+
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY,start,end)
+    }
+
+    private fun useModel(h:Float,l:Float,p:Float): Float {
+//    val even = arrayOf<Any>()
+//    val odd = arrayOf(0.0,1.0,1.0)
+//
+//    val lala = arrayOf(odd, even)
+        val test = arrayOf(floatArrayOf(h, l, p))
+        val array = Array(1) { FloatArray(3) {0.0f} }
+        val input = FloatArray(1)
+
+//        input[0] = inputX.toFloat()
+
+        Log.i("here","hi")
+
+//    val input = [0,1,1]
+//        val input = Array(3) {Array(1) {Array(1) {0}} }
+        val output = Array(1){ FloatArray(1) }
+
+        tflite!!.run(test,output)
+        Log.i("here","hiHI")
+
+        return output[0][0]
+    }
+
+//    fun csv(str: String) {
+//        try {
+//            fileOutputStream =
+//                context.applicationContext.openFileOutput("TEST123.txt", Context.MODE_APPEND)
+//            outputWriter = OutputStreamWriter(fileOutputStream)
+//            outputWriter.write(str + "\n")
+//            outputWriter.close()
+//
+//        } catch (e: IOException) {
+//        }
+//    }
+
+
+
+    override fun onSensorChanged(event: SensorEvent?) {
+
+        if (event?.sensor?.type == Sensor.TYPE_LIGHT) {
+            var l1 = event.values[0]
+
+
+            if(l1>100){
+                light = 1F
+            }
+            else{
+                light = 0F
+            }
+
+
+            Log.v("LIGHT", "${System.currentTimeMillis()},${light}")
+
+
+        }
+
+        if (event?.sensor?.type == Sensor.TYPE_PROXIMITY) {
+            var p1 = event.values[0]
+
+            if(p1>0){
+                proxi = 1F
+            }
+            else{
+                proxi = 0F
+            }
+
+            Log.v("PROXI", "${System.currentTimeMillis()},${proxi}")
+
+
+        }
+        if (event?.sensor?.type == Sensor.TYPE_PRESSURE) {
+            pressure = event.values[0]
+        }
+
+        getCurrentLocation()
+
+        if(status) {
+            final = "INDOOR"
+
+            Log.i("here","here")
+            val prediction = useModel(0.0f,light,proxi)
+            Log.i("here","here again")
+            if(prediction>0.5f) {
+
+                csv.record(
+                    "OUTDOOR,$latitude,$longitude,$bearing,$pressure,$mAlt",
+                    "BAROMETER"
+                )
+            } else{
+                csv.record(
+                    "INDOOR,$latitude,$longitude,$altitude,$bearing,$pressure",
+                    "BAROMETER"
+                )
+            }
+//            csv.record(final,"PREDICT")
+            Log.i("here","here again here")
+
+            Log.i("final","${final}, ${prediction}")
+            Log.i("TEST","${hour.toInt()},${proxi.toInt()},${light.toInt()}")
+//
+            Log.i("DOOR","${System.currentTimeMillis()},${
+                SimpleDateFormat("HH", Locale.US).format(
+                    Date()
+                )},${proxi.toInt()},${light.toInt()}")
+
+        }
+
+
+    }
+
+    fun getStatus(): String {
+        return status.toString()
+    }
+
+    fun stop(){
+        light_manager.unregisterListener(this)
+        proxi_manager.unregisterListener(this)
+        pressure_manager.unregisterListener(this)
+
+        status = false
+    }
+
 
     fun isLocationEnabled(): Boolean {
         val manager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -138,22 +303,6 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
                     bearing = location.bearing.toString()
 
 
-
-                    if(iotest.final=="OUTDOOR") {
-
-                        csv.record(
-                            "${iotest.final},$latitude,$longitude,$bearing,$pressure,$mAlt",
-                            "LOCATION"
-                        )
-                    }
-                    else if(iotest.final=="INDOOR") {
-
-                        csv.record(
-                            "${iotest.final},$latitude,$longitude,$altitude,$bearing,$pressure",
-                            "LOCATION"
-                        )
-                    }
-
                 }
 
 
@@ -178,13 +327,7 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
         alert!!.show()
     }
 
-    override fun onSensorChanged(event: SensorEvent?) {
-        if (event?.sensor?.type == Sensor.TYPE_PRESSURE) {
-            pressure = event.values[0]
-        }
 
-        getCurrentLocation()
-    }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
         return

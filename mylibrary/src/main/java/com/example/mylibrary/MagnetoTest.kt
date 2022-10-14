@@ -40,6 +40,8 @@ class MagnetoTest(context1: Context) : SensorEventListener {
     var valuey_un: Float = 0.0f
     var valuez_un: Float = 0.0f
 
+    var currentDegree = 0f
+
     private lateinit var powerManager: PowerManager
     private lateinit var wakeLock: PowerManager.WakeLock
 
@@ -103,11 +105,17 @@ class MagnetoTest(context1: Context) : SensorEventListener {
                 pitch = event.values[1]
                 roll = event.values[2]
 
+                val degree = Math.round(event?.values?.get(0)!!)
+
+                currentDegree = (-degree).toFloat()
+
+                Log.i("Orient","${currentDegree}")
+
             }
 
 
             all = "${System.currentTimeMillis()},${
-                SimpleDateFormat("HH", Locale.US).format(Date())}"+"${valuex},${valuey},${valuez}"+
+                SimpleDateFormat("HH", Locale.US).format(Date())}"+"${currentDegree}"+"${valuex},${valuey},${valuez}"+
                     "${valuex_un},${valuey_un},${valuez_un},${yaw},${pitch},${roll}"
 
             csv.record(all,"MAGNETO")

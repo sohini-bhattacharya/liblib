@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "liblib"
+rootProject.name = "SeventhSense"
 include ':app'
 include ':mylibrary'

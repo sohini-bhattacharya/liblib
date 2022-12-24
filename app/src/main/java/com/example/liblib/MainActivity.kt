@@ -1,18 +1,11 @@
 package com.example.liblib
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.Switch
 import android.widget.TextView
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import com.example.mylibrary.*
-import kotlin.properties.Delegates
+import com.example.seventhsense.*
 
 
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.example.mylibrary
+package com.example.seventhsense
 
 import android.app.Service
 import android.content.BroadcastReceiver
@@ -7,11 +7,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiManager
-import android.os.PowerManager
 import android.util.Log
 import android.widget.Toast
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.util.*

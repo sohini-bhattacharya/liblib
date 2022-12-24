@@ -1,4 +1,4 @@
-package com.example.mylibrary
+package com.example.seventhsense
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -16,7 +16,6 @@ import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.location.LocationManagerCompat.getCurrentLocation
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.tensorflow.lite.Interpreter

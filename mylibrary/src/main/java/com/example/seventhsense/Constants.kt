@@ -1,4 +1,4 @@
-package com.example.mylibrary
+package com.example.seventhsense
 
 object Constants {
     const val REQUEST_CODE_ACTIVITY_TRANSITION = 123

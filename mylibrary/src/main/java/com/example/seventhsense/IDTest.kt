@@ -1,4 +1,4 @@
-package com.example.mylibrary
+package com.example.seventhsense
 
 import android.annotation.SuppressLint
 import android.content.Context

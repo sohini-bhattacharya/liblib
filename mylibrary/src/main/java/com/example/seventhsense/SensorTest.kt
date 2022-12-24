@@ -1,24 +1,18 @@
-package com.example.mylibrary
+package com.example.seventhsense
 
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Context.SENSOR_SERVICE
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.location.LocationManager
-import android.os.Build
-import android.os.IBinder
 import android.os.PowerManager
 import android.util.Log
 import android.widget.Toast
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.util.*

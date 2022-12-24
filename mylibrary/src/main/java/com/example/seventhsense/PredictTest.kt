@@ -1,4 +1,4 @@
-package com.example.mylibrary
+package com.example.seventhsense
 
 import android.content.Context
 import android.hardware.Sensor
@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import org.tensorflow.lite.Interpreter
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.OutputStreamWriter
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel

@@ -1,7 +1,6 @@
-package com.example.mylibrary
+package com.example.seventhsense
 
 import android.annotation.SuppressLint
-import android.app.Service
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.ScanCallback
@@ -12,9 +11,7 @@ import android.content.Context
 import android.content.Context.BLUETOOTH_SERVICE
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.util.*

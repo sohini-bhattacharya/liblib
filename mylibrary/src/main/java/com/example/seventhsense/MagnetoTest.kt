@@ -16,13 +16,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("DEPRECATION")
-class MagnetoTest(context1: Context) : SensorEventListener {
+class MagnetoTest(context: Context) : SensorEventListener {
 
     lateinit var outputWriter: OutputStreamWriter
     lateinit var fileOutputStream: FileOutputStream
-    var context: Context = context1
+    var context1: Context = context
 
-    var csv: CSVTest = CSVTest(context)
+    var csv: CSVTest = CSVTest(context1)
 
     //    private lateinit var text: TextView
     var status: Boolean = false
@@ -55,22 +55,22 @@ class MagnetoTest(context1: Context) : SensorEventListener {
     private var orient_sensor: Sensor? = null
 
     fun getSensor() {
-        Toast.makeText(context, "Sensor Started", Toast.LENGTH_LONG).show();
+        Toast.makeText(context1, "Sensor Started", Toast.LENGTH_LONG).show();
 
-        powerManager = context?.getSystemService(Service.POWER_SERVICE) as PowerManager
+        powerManager = context1?.getSystemService(Service.POWER_SERVICE) as PowerManager
 
         wakeLock = powerManager.newWakeLock(
             PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK,
             "MyApp::MyWakelockTag"
         )
         wakeLock.acquire()
-        mag_manager = context.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        mag_manager = context1.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
         mag_sensor = mag_manager!!.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
 
-        mag_uncal_manager = context.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        mag_uncal_manager = context1.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
         mag_uncal_sensor = mag_manager!!.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED)
 
-        orient_manager = context?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        orient_manager = context1?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
         orient_sensor = orient_manager!!.getDefaultSensor(Sensor.TYPE_ORIENTATION)
 
         mag_manager.registerListener(this, mag_sensor, SensorManager.SENSOR_DELAY_FASTEST)
@@ -129,7 +129,7 @@ class MagnetoTest(context1: Context) : SensorEventListener {
         orient_manager.unregisterListener(this)
 
         wakeLock.release()
-        Toast.makeText(context, "Sensor Stopped", Toast.LENGTH_LONG).show()
+        Toast.makeText(context1, "Sensor Stopped", Toast.LENGTH_LONG).show()
         Log.i("HERE", "STOPPED")
 
         status = false

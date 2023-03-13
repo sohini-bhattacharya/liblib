@@ -16,30 +16,30 @@ import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BLETest(context1: Context) {
-    var context: Context = context1
+class BLETest(context: Context) {
+    var context1: Context = context
 
     lateinit var fileOutputStream: FileOutputStream
     lateinit var outputWriter: OutputStreamWriter
     var status: Boolean = false
 
-    var csv: CSVTest = CSVTest(context)
+    var csv: CSVTest = CSVTest(context1)
 
     private val bluetoothAdapter: BluetoothAdapter by lazy {
-        (context?.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
+        (context1?.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
     }
 
     fun getBLE() {
         startBLEScan()
 
-        Toast.makeText(context, "BLE Started", Toast.LENGTH_LONG).show();
+        Toast.makeText(context1, "BLE Started", Toast.LENGTH_LONG).show();
 
         status = true
     }
     fun stop(){
         stopBLEScan()
 
-        Toast.makeText(context, "BLE Stopped", Toast.LENGTH_LONG).show()
+        Toast.makeText(context1, "BLE Stopped", Toast.LENGTH_LONG).show()
 
         status = false
     }
@@ -107,7 +107,7 @@ class BLETest(context1: Context) {
 
 //    private fun csv(str:String) {
 //        try {
-//            fileOutputStream = context.applicationContext.openFileOutput("TEST10.txt", Context.MODE_APPEND)
+//            fileOutputStream = context1.applicationcontext1.openFileOutput("TEST10.txt", context1.MODE_APPEND)
 //            outputWriter = OutputStreamWriter(fileOutputStream)
 //            outputWriter.write(str+"\n")
 //            outputWriter.close()
@@ -118,7 +118,7 @@ class BLETest(context1: Context) {
 //    }
 
     private fun showToast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG)
+        Toast.makeText(context1, message, Toast.LENGTH_LONG)
             .show()
     }
 }

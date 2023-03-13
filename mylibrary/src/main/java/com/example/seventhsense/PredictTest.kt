@@ -18,9 +18,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class PredictTest(context1: Context): SensorEventListener {
+class PredictTest(context: Context): SensorEventListener {
 
-    var context: Context = context1
+    var context1: Context = context
 
     var light: Float = 0.0f
     var proxi: Float = 0.0f
@@ -28,7 +28,7 @@ class PredictTest(context1: Context): SensorEventListener {
     var hour: Float = 0.0f
 
     var final: String = "OUTDOOR"
-    var csv: CSVTest = CSVTest(context)
+    var csv: CSVTest = CSVTest(context1)
 
     private lateinit var light_manager: SensorManager
     private var light_sensor: Sensor? = null
@@ -43,10 +43,10 @@ class PredictTest(context1: Context): SensorEventListener {
     var prediction: Int = 0
 
     fun getPrediction(){
-        light_manager = context?.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        light_manager = context1?.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
         light_sensor = light_manager!!.getDefaultSensor(Sensor.TYPE_LIGHT)
 
-        proxi_manager = context?.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        proxi_manager = context1?.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
         proxi_sensor = proxi_manager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
 
         light_manager.registerListener(this, light_sensor, SENSOR_DELAY_FASTEST)
@@ -64,7 +64,7 @@ class PredictTest(context1: Context): SensorEventListener {
     }
 
     private fun loadModel(): MappedByteBuffer {
-        val fileDescriptor = context.assets.openFd("logistic.tflite")
+        val fileDescriptor = context1.assets.openFd("logistic.tflite")
 
         val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
 

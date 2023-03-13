@@ -25,7 +25,7 @@
 
     <application>
     <receiver
-        android:name=".ActivityTest"
+        android:name=".ActivityRecognitionReceiver"
         android:exported="false"
         android:permission="com.google.android.gms.permission.ACTIVITY_RECOGNITION">
     <intent-filter>

@@ -6,12 +6,12 @@ import android.provider.Settings
 import android.util.Log
 import java.util.*
 
-class IDTest(context1: Context) {
+class IDTest(context: Context) {
     var uniqueID: String = ""
     var android_id: String = ""
-    var context: Context = context1
+    var context1: Context = context
 
-    var csv: CSVTest = CSVTest(context)
+    var csv: CSVTest = CSVTest(context1)
 
     @SuppressLint("HardwareIds")
     fun getUUId(){
@@ -25,7 +25,7 @@ class IDTest(context1: Context) {
 
     fun getAndroidId(){
         // main
-        android_id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID)
+        android_id = Settings.Secure.getString(context1.getContentResolver(), Settings.Secure.ANDROID_ID)
 
         Log.i("ID","$android_id")
         csv.record("$android_id","ID")

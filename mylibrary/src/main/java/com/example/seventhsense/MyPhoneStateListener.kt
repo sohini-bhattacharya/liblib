@@ -10,9 +10,9 @@ import java.util.*
 
 var mSignalStrength = 0
 @Suppress("DEPRECATION")
-class MyPhoneStateListener(context1: Context) : PhoneStateListener() {
+class MyPhoneStateListener(context: Context) : PhoneStateListener() {
 
-    var csv: CSVTest = CSVTest(context1)
+    var csv: CSVTest = CSVTest(context)
 
     override fun onSignalStrengthsChanged(signalStrength: SignalStrength) {
         super.onSignalStrengthsChanged(signalStrength)
@@ -23,7 +23,7 @@ class MyPhoneStateListener(context1: Context) : PhoneStateListener() {
 
             var ss = mSignalStrength.toString()
 
-            csv.record(mSignalStrength.toString(), "cell")
+//            csv.record(mSignalStrength.toString(), "cell")
 
             Log.i("HERE", mSignalStrength.toString())
 

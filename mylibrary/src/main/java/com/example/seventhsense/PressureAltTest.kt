@@ -3,11 +3,11 @@ package com.example.seventhsense
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.location.Location
 import android.location.LocationManager
 import android.provider.Settings
@@ -17,12 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
-class LocationTest(context: Context, activity: AppCompatActivity){
+class PressureAltTest (context: Context, activity: AppCompatActivity): SensorEventListener {
 
     var context1: Context = context
     var activity1: Activity = activity
 
-
+    var pressure = 0.0f
 
     var latitude: String = ""
     var longitude: String = ""
@@ -30,15 +30,23 @@ class LocationTest(context: Context, activity: AppCompatActivity){
     var bearing: String = ""
     var accuracy: String = ""
     var speed: String = ""
-    var speedAccuracy: String = ""
     var loc: String = ""
 
-    var fusedLocationProviderClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity1)
 
-    var csv: CSVTest = CSVTest(context1)
+    private lateinit var pressure_manager: SensorManager
+    private var pressure_sensor: Sensor? = null
 
+    var fusedLocationProviderClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity)
+
+    var csv: CSVTest = CSVTest(context)
+
+    fun initialize(){
+        pressure_manager = context1?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        pressure_sensor = pressure_manager!!.getDefaultSensor(Sensor.TYPE_PRESSURE)
+
+    }
     fun isLocationEnabled(): Boolean {
-        val manager: LocationManager = context1?.getSystemService(LOCATION_SERVICE) as LocationManager
+        val manager: LocationManager = context1?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
         {
             buildAlertMessageNoGps()
@@ -49,9 +57,19 @@ class LocationTest(context: Context, activity: AppCompatActivity){
 
     }
 
+    fun stop(){
+
+        pressure_manager.unregisterListener(this)
+
+        Toast.makeText(context1, "Sensor Stopped", Toast.LENGTH_LONG).show()
+        Log.i("HERE", "STOPPED")
+    }
+
+
     @SuppressLint("MissingPermission")
     fun getCurrentLocation(){
 
+        initialize()
 
         if(isLocationEnabled()) {
 
@@ -64,14 +82,14 @@ class LocationTest(context: Context, activity: AppCompatActivity){
 //                    Toast.makeText(context,"Success LOC", Toast.LENGTH_SHORT).show()
 
                     loc = location.toString()
-                    Log.i("LOCATION","$location")
-                    Log.i("LOCATION","${location.latitude}")
-                    Log.i("LOCATION","${location.longitude}")
-                    Log.i("LOCATION","${location.altitude}")
-                    Log.i("LOCATION","${location.bearing}")
-                    Log.i("LOCATION","${location.accuracy}")
-                    Log.i("LOCATION","${location.speed}")
-                    Log.i("LOCATION","${location.speedAccuracyMetersPerSecond}")
+                    Log.i("PressureAlt","$location")
+                    Log.i("PressureAlt","Latitude: ${location.latitude}")
+                    Log.i("PressureAlt","Longitude: ${location.longitude}")
+                    Log.i("PressureAlt","Altitude: ${location.altitude}")
+                    Log.i("PressureAlt","Bearing: ${location.bearing}")
+                    Log.i("PressureAlt","Accuracy: ${location.accuracy}")
+                    Log.i("PressureAlt","Speed: ${location.speed}")
+                    Log.i("PressureAlt","Pressure: $pressure")
 
                     latitude = location.latitude.toString()
                     longitude = location.longitude.toString()
@@ -79,10 +97,9 @@ class LocationTest(context: Context, activity: AppCompatActivity){
                     bearing = location.bearing.toString()
                     accuracy = location.accuracy.toString()
                     speed = location.speed.toString()
-                    speedAccuracy = location.speedAccuracyMetersPerSecond.toString()
 
-                    Log.i("LOC","$latitude,$longitude,$altitude,$bearing,$accuracy,$speed,$speedAccuracy")
-                    csv.record("$latitude,$longitude,$altitude,$bearing,$accuracy,$speed,$speedAccuracy","LOCATION")
+                    Log.i("PA","$pressure,$latitude,$longitude,$altitude,$bearing,$accuracy,$speed")
+                    csv.record("$pressure,$latitude,$longitude,$altitude,$bearing,$accuracy,$speed","PressureAlt")
 
                 }
 
@@ -97,6 +114,17 @@ class LocationTest(context: Context, activity: AppCompatActivity){
 
     }
 
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event?.sensor?.type == Sensor.TYPE_PRESSURE) {
+            pressure = event.values[0]
+            csv.record("$pressure,$latitude,$longitude,$altitude,$bearing,$accuracy,$speed","PressureAltAll")
+
+        }
+    }
+
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+        return
+    }
 
     private fun buildAlertMessageNoGps() {
         val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(context1)
@@ -107,7 +135,5 @@ class LocationTest(context: Context, activity: AppCompatActivity){
         val alert: android.app.AlertDialog? = builder.create()
         alert!!.show()
     }
-
-
 
 }

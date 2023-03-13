@@ -15,21 +15,21 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("DEPRECATION")
-class WifiTest(context1: Context) {
+class WifiTest(context: Context) {
 
-    var context: Context = context1
+    var context1: Context = context
     lateinit var wifiManager: WifiManager
 
     lateinit var fileOutputStream: FileOutputStream
     lateinit var outputWriter: OutputStreamWriter
     private lateinit var wifiLock: WifiManager.WifiLock
 
-    var csv: CSVTest = CSVTest(context)
+    var csv: CSVTest = CSVTest(context1)
 
     var status: Boolean = false
 
     fun getWifi(){
-        wifiManager = context?.getSystemService(Service.WIFI_SERVICE) as WifiManager
+        wifiManager = context1?.getSystemService(Service.WIFI_SERVICE) as WifiManager
         wifiLock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, "myId")
         wifiLock.acquire()
         startScanning()
@@ -39,7 +39,7 @@ class WifiTest(context1: Context) {
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG)
+        Toast.makeText(context1, message, Toast.LENGTH_LONG)
             .show()
     }
 
@@ -86,7 +86,7 @@ class WifiTest(context1: Context) {
     }
 
     private fun startScanning() {
-        context?.registerReceiver(wifiScanReceiver, IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
+        context1?.registerReceiver(wifiScanReceiver, IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
         @Suppress("DEPRECATION")
         wifiManager.startScan()
 
@@ -98,10 +98,10 @@ class WifiTest(context1: Context) {
     }
 
     fun stop() {
-        context?.unregisterReceiver(wifiScanReceiver)
+        context1?.unregisterReceiver(wifiScanReceiver)
         wifiLock.release()
         status = false
-        Toast.makeText(context, "Service Stopped", Toast.LENGTH_LONG).show()
+        Toast.makeText(context1, "Service Stopped", Toast.LENGTH_LONG).show()
         Log.i("HERE","STOPPED")
     }
 }

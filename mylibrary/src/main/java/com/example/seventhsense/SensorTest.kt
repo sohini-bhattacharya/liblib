@@ -22,10 +22,10 @@ import java.util.*
 //import androidx.core.content.ContextCompat.getSystemService
 
 @SuppressLint("NewApi")
-class SensorTest(context1: Context) : SensorEventListener  {
+class SensorTest(context: Context) : SensorEventListener  {
     lateinit var outputWriter: OutputStreamWriter
     lateinit var fileOutputStream: FileOutputStream
-    var context: Context = context1
+    var context1: Context = context
     var light = 0.0f
     var proxi = 0.0f
     var pressure = 0.0f
@@ -36,7 +36,7 @@ class SensorTest(context1: Context) : SensorEventListener  {
     var y = 0.0f
     var z = 0.0f
 
-    var csv: CSVTest = CSVTest(context)
+    var csv: CSVTest = CSVTest(context1)
 
     //    private lateinit var text: TextView
     var status: Boolean = false
@@ -71,9 +71,9 @@ class SensorTest(context1: Context) : SensorEventListener  {
 
 
     fun getSensor(){
-        Toast.makeText(context, "Sensor Started", Toast.LENGTH_LONG).show();
+        Toast.makeText(context1, "Sensor Started", Toast.LENGTH_LONG).show();
 
-        powerManager = context?.getSystemService(Service.POWER_SERVICE) as PowerManager
+        powerManager = context1?.getSystemService(Service.POWER_SERVICE) as PowerManager
 
         wakeLock = powerManager.newWakeLock(
             PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK,
@@ -81,20 +81,20 @@ class SensorTest(context1: Context) : SensorEventListener  {
         )
         wakeLock.acquire()
 
-        mag_manager = context?.getSystemService(SENSOR_SERVICE) as SensorManager
+        mag_manager = context1?.getSystemService(SENSOR_SERVICE) as SensorManager
         mag_sensor = mag_manager!!.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
 
-        orient_manager = context?.getSystemService(SENSOR_SERVICE) as SensorManager
+        orient_manager = context1?.getSystemService(SENSOR_SERVICE) as SensorManager
         orient_sensor = orient_manager!!.getDefaultSensor(Sensor.TYPE_ORIENTATION)
 
-        light_manager = context?.getSystemService(SENSOR_SERVICE) as SensorManager
+        light_manager = context1?.getSystemService(SENSOR_SERVICE) as SensorManager
         light_sensor = light_manager!!.getDefaultSensor(Sensor.TYPE_LIGHT)
 
-        proxi_manager = context?.getSystemService(SENSOR_SERVICE) as SensorManager
+        proxi_manager = context1?.getSystemService(SENSOR_SERVICE) as SensorManager
         proxi_sensor = proxi_manager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
 
 
-        pressure_manager = context?.getSystemService(SENSOR_SERVICE) as SensorManager
+        pressure_manager = context1?.getSystemService(SENSOR_SERVICE) as SensorManager
         pressure_sensor = pressure_manager!!.getDefaultSensor(Sensor.TYPE_PRESSURE)
 
         light_manager.registerListener(this, light_sensor, SensorManager.SENSOR_DELAY_FASTEST)
@@ -114,7 +114,7 @@ class SensorTest(context1: Context) : SensorEventListener  {
 //    fun csv(str: String) {
 //        try {
 //            fileOutputStream =
-//                context.applicationContext.openFileOutput("TEST123.txt", Context.MODE_APPEND)
+//                context1.applicationcontext1.openFileOutput("TEST123.txt", context1.MODE_APPEND)
 //            outputWriter = OutputStreamWriter(fileOutputStream)
 //            outputWriter.write(str + "\n")
 //            outputWriter.close()
@@ -130,7 +130,7 @@ class SensorTest(context1: Context) : SensorEventListener  {
         pressure_manager.unregisterListener(this)
         orient_manager.unregisterListener(this)
         wakeLock.release()
-        Toast.makeText(context, "Sensor Stopped", Toast.LENGTH_LONG).show()
+        Toast.makeText(context1, "Sensor Stopped", Toast.LENGTH_LONG).show()
         Log.i("HERE", "STOPPED")
 
         status = false

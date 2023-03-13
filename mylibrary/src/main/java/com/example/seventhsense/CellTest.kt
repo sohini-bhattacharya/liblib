@@ -9,9 +9,9 @@ import android.telephony.PhoneStateListener
 import android.telephony.TelephonyManager
 
 @Suppress("DEPRECATION")
-class CellTest(context1: Context) {
+class CellTest(context: Context) {
 
-    var context: Context = context1
+    var context1: Context = context
 
     var mTelephonyManager: TelephonyManager? = null
     var mPhoneStatelistener: MyPhoneStateListener? = null
@@ -20,8 +20,8 @@ class CellTest(context1: Context) {
 
 
     fun getCell(){
-        mPhoneStatelistener = MyPhoneStateListener(context)
-        mTelephonyManager = context?.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        mPhoneStatelistener = MyPhoneStateListener(context1)
+        mTelephonyManager = context1?.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
 
         status = true
 

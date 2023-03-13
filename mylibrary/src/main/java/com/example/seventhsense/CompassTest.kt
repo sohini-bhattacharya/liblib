@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 
-class CompassTest(context1: Context) : SensorEventListener {
+class CompassTest(context: Context) : SensorEventListener {
 
 
     private lateinit var powerManager: PowerManager
@@ -23,26 +23,26 @@ class CompassTest(context1: Context) : SensorEventListener {
 
     lateinit var outputWriter: OutputStreamWriter
     lateinit var fileOutputStream: FileOutputStream
-    var context: Context = context1
+    var context1: Context = context
 
     var currentDegree = 0f
 
-    var csv: CSVTest = CSVTest(context)
+    var csv: CSVTest = CSVTest(context1)
 
     var status: Boolean = false
     var all: String = "h"
 
     fun getSensor() {
-        Toast.makeText(context, "Sensor Started", Toast.LENGTH_LONG).show();
+        Toast.makeText(context1, "Sensor Started", Toast.LENGTH_LONG).show();
 
-        powerManager = context?.getSystemService(Service.POWER_SERVICE) as PowerManager
+        powerManager = context1?.getSystemService(Service.POWER_SERVICE) as PowerManager
 
         wakeLock = powerManager.newWakeLock(
             PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK,
             "MyApp::MyWakelockTag"
         )
         wakeLock.acquire()
-        orient_manager = context.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        orient_manager = context1.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
 
         orient_manager.registerListener(this, orient_manager!!.getDefaultSensor(Sensor.TYPE_ORIENTATION),SensorManager.SENSOR_DELAY_GAME)
 
@@ -55,7 +55,7 @@ class CompassTest(context1: Context) : SensorEventListener {
         orient_manager.unregisterListener(this)
 
         wakeLock.release()
-        Toast.makeText(context, "Sensor Stopped", Toast.LENGTH_LONG).show()
+        Toast.makeText(context1, "Sensor Stopped", Toast.LENGTH_LONG).show()
         Log.i("HERE", "STOPPED")
 
         status = false

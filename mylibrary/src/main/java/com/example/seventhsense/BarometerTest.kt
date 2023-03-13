@@ -27,12 +27,12 @@ import java.nio.channels.FileChannel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEventListener {
+class BarometerTest(context: Context, activity: AppCompatActivity) : SensorEventListener {
 
     lateinit var outputWriter: OutputStreamWriter
     lateinit var fileOutputStream: FileOutputStream
 
-    var context: Context = context1
+    var context1: Context = context
 
     var light: Float = 0.0f
     var proxi: Float = 0.0f
@@ -64,7 +64,7 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
 
     var iobar: Int = 0
 
-    var activity: Activity = activity1
+    var activity1: Activity = activity
 
     var fusedLocationProviderClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity)
 
@@ -83,9 +83,9 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
     @SuppressLint("MissingPermission")
     fun getBarometer() {
 
-        Toast.makeText(context, "Sensor Started", Toast.LENGTH_LONG).show();
+        Toast.makeText(context1, "Sensor Started", Toast.LENGTH_LONG).show();
 
-        powerManager = context?.getSystemService(Service.POWER_SERVICE) as PowerManager
+        powerManager = context1?.getSystemService(Service.POWER_SERVICE) as PowerManager
 
         wakeLock = powerManager.newWakeLock(
             PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK,
@@ -93,13 +93,13 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
         )
         wakeLock.acquire()
 
-        pressure_manager = context.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        pressure_manager = context1.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
         pressure_sensor = pressure_manager!!.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
 
-        light_manager = context?.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        light_manager = context1?.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
         light_sensor = light_manager!!.getDefaultSensor(Sensor.TYPE_LIGHT)
 
-        proxi_manager = context?.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
+        proxi_manager = context1?.getSystemService(AppCompatActivity.SENSOR_SERVICE) as SensorManager
         proxi_sensor = proxi_manager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
 
         light_manager.registerListener(this, light_sensor, SensorManager.SENSOR_DELAY_FASTEST)
@@ -127,7 +127,7 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
     }
 
     private fun loadModel(): MappedByteBuffer {
-        val fileDescriptor = context.assets.openFd("logistic.tflite")
+        val fileDescriptor = context1.assets.openFd("logistic.tflite")
 
         val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
 
@@ -264,7 +264,7 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
 
 
     fun isLocationEnabled(): Boolean {
-        val manager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val manager: LocationManager = context1?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER))
         {
             buildAlertMessageNoGps()
@@ -308,7 +308,7 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
             }
         }
         else{
-            Toast.makeText(context,"Unsuccessful", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context1,"Unsuccessful", Toast.LENGTH_SHORT).show()
 
         }
 
@@ -317,10 +317,10 @@ class BarometerTest(context1: Context, activity1: AppCompatActivity) : SensorEve
 
 
     private fun buildAlertMessageNoGps() {
-        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(context)
+        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(context1)
         builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
             .setCancelable(false)
-            .setPositiveButton("Yes") { dialog, id -> context?.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
+            .setPositiveButton("Yes") { dialog, id -> context1?.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)) }
             .setNegativeButton("No", { dialog, id -> dialog.cancel() })
         val alert: android.app.AlertDialog? = builder.create()
         alert!!.show()

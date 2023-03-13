@@ -5,16 +5,16 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStreamWriter
 
-class CSVTest(context1: Context ) {
+class CSVTest(context: Context ) {
 
-    var context: Context = context1
+    var context1: Context = context
     lateinit var fileOutputStream: FileOutputStream
     lateinit var outputWriter: OutputStreamWriter
 
     fun record(data: String, name: String) {
         try {
             fileOutputStream =
-                context.applicationContext.openFileOutput("$name.txt", Context.MODE_APPEND)
+                context1.applicationContext.openFileOutput("$name.txt", Context.MODE_APPEND)
             outputWriter = OutputStreamWriter(fileOutputStream)
             outputWriter.write(data + "\n")
             outputWriter.close()

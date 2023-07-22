@@ -12,7 +12,7 @@ Along with that, there are case specific classes and functions, ie. to record an
 
 <dl>
   <dt><span style="color:#FFC0CB">How to import the library?</span></dt>
-    <dd>In your build.gradle project file, (please replace latest_version with the latest release on github)
+    <dd>In your build.gradle project file, (please replace 'latest_version' with the latest release on github)
 </dd>
 </dl>
 

@@ -27,7 +27,7 @@ import java.nio.channels.FileChannel
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BarometerTest(context: Context, activity: AppCompatActivity) : SensorEventListener {
+class Barometer(context: Context, activity: AppCompatActivity) : SensorEventListener {
 
     lateinit var outputWriter: OutputStreamWriter
     lateinit var fileOutputStream: FileOutputStream
@@ -74,7 +74,7 @@ class BarometerTest(context: Context, activity: AppCompatActivity) : SensorEvent
     private lateinit var pressure_manager: SensorManager
     private var pressure_sensor: Sensor? = null
 
-    var csv: CSVTest = CSVTest(context)
+    var csv: CSV = CSV(context)
 
     var status: Boolean = false
     var all: String = "h"

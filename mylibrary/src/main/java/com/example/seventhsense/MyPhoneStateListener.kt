@@ -12,7 +12,7 @@ var mSignalStrength = 0
 @Suppress("DEPRECATION")
 class MyPhoneStateListener(context: Context) : PhoneStateListener() {
 
-    var csv: CSVTest = CSVTest(context)
+    var csv: CSV = CSV(context)
 
     override fun onSignalStrengthsChanged(signalStrength: SignalStrength) {
         super.onSignalStrengthsChanged(signalStrength)

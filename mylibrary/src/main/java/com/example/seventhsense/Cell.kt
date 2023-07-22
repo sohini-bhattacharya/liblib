@@ -5,7 +5,7 @@ import android.telephony.PhoneStateListener
 import android.telephony.TelephonyManager
 
 @Suppress("DEPRECATION")
-class CellTest(context: Context) {
+class Cell(context: Context) {
 
     var context1: Context = context
 

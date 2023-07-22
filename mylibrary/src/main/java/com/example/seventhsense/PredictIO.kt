@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class PredictTest(context: Context): SensorEventListener {
+class PredictIO(context: Context): SensorEventListener {
 
     var context1: Context = context
 
@@ -28,7 +28,7 @@ class PredictTest(context: Context): SensorEventListener {
     var hour: Float = 0.0f
 
     var final: String = "OUTDOOR"
-    var csv: CSVTest = CSVTest(context1)
+    var csv: CSV = CSV(context1)
 
     private lateinit var light_manager: SensorManager
     private var light_sensor: Sensor? = null
@@ -161,7 +161,7 @@ class PredictTest(context: Context): SensorEventListener {
             csv.record(final,"PREDICT")
             Log.i("here","here again here")
 
-            Log.i("final","${final}, ${prediction}")
+            Log.i("PREDICT","${final}, ${prediction}")
             Log.i("TEST","${hour.toInt()},${proxi.toInt()},${light.toInt()}")
 //
             Log.i("DOOR","${System.currentTimeMillis()},${

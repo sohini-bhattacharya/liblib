@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
-class RelativeHeightTest(context: Context, activity: AppCompatActivity){
+class RelativeHeight(context: Context, activity: AppCompatActivity){
 
     var context1: Context = context
     var activity1: Activity = activity
@@ -28,7 +28,7 @@ class RelativeHeightTest(context: Context, activity: AppCompatActivity){
 
     var fusedLocationProviderClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity)
 
-    var csv: CSVTest = CSVTest(context)
+    var csv: CSV = CSV(context)
 
     fun isLocationEnabled(): Boolean {
         val manager: LocationManager = context1?.getSystemService(Context.LOCATION_SERVICE) as LocationManager

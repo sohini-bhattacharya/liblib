@@ -16,13 +16,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("DEPRECATION")
-class MagnetoTest(context: Context) : SensorEventListener {
+class Magneto(context: Context) : SensorEventListener {
 
     lateinit var outputWriter: OutputStreamWriter
     lateinit var fileOutputStream: FileOutputStream
     var context1: Context = context
 
-    var csv: CSVTest = CSVTest(context1)
+    var csv: CSV = CSV(context1)
 
     //    private lateinit var text: TextView
     var status: Boolean = false

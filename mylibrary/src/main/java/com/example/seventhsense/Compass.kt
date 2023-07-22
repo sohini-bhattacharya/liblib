@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
 
-class CompassTest(context: Context) : SensorEventListener {
+class Compass(context: Context) : SensorEventListener {
 
 
     private lateinit var powerManager: PowerManager
@@ -27,7 +27,7 @@ class CompassTest(context: Context) : SensorEventListener {
 
     var currentDegree = 0f
 
-    var csv: CSVTest = CSVTest(context1)
+    var csv: CSV = CSV(context1)
 
     var status: Boolean = false
     var all: String = "h"

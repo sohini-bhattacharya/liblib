@@ -9,10 +9,10 @@ import android.widget.Toast
 import com.google.android.gms.location.ActivityRecognition
 import com.google.android.gms.location.ActivityRecognitionClient
 
-class ActivityTest(context1: Context) {
+class Activity(context1: Context) {
     var context: Context = context1
     lateinit var client: ActivityRecognitionClient
-    var csv: CSVTest = CSVTest(context)
+    var csv: CSV = CSV(context)
 
     var status = false
 

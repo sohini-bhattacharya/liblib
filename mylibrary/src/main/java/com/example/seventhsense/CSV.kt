@@ -5,7 +5,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStreamWriter
 
-class CSVTest(context: Context ) {
+class CSV(context: Context ) {
 
     var context1: Context = context
     lateinit var fileOutputStream: FileOutputStream

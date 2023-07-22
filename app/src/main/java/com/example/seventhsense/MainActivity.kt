@@ -13,21 +13,21 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var text: TextView
 
-    //    lateinit var s: SensorTest
-//    lateinit var b: BLETest
-//    lateinit var p: PredictTest
-    lateinit var pe: PermissionTest
+    //    lateinit var s: Sensor
+//    lateinit var b: BLE
+//    lateinit var p: PredictIO
+    lateinit var pe: Permissions
 
-    //    lateinit var w: WifiTest
-//    lateinit var id: IDTest
-    lateinit var loc: LocationTest
-    lateinit var baro: BarometerTest
-//    lateinit var magneto: MagnetoTest
+    //    lateinit var w: Wifi
+//    lateinit var id: ID
+    lateinit var loc: Location
+    lateinit var baro: Barometer
+//    lateinit var magneto: Magneto
 
-    //    lateinit var a: ActivityTest
-    lateinit var ce: CellTest
+    //    lateinit var a: Activity
+    lateinit var ce: Cell
 
-    lateinit var pa: PressureAltTest
+    lateinit var pa: PressureAltitude
 
     lateinit var permissions: Switch
     lateinit var button: Switch
@@ -41,21 +41,21 @@ class MainActivity : AppCompatActivity() {
         button = findViewById(R.id.button_status)
         text = findViewById(R.id.txt)
 //
-//        id = IDTest(this)
-        pe = PermissionTest(applicationContext, this)
-//        w = WifiTest(this)
+//        id = ID(this)
+        pe = Permissions(applicationContext, this)
+//        w = Wifi(this)
 
-//        a = ActivityTest(this)
-//        p = PredictTest(this)
+//        a = Activity(this)
+//        p = PredictIO(this)
 
-        pa = PressureAltTest(applicationContext, this)
-//        loc = LocationTest(applicationContext,this)
+        pa = PressureAltitude(applicationContext, this)
+//        loc = Location(applicationContext,this)
 
-//        baro = BarometerTest(applicationContext,this)
+//        baro = Barometer(applicationContext,this)
 
-        ce = CellTest(applicationContext)
+        ce = Cell(applicationContext)
 
-//        magneto = MagnetoTest(applicationContext)
+//        magneto = Magneto(applicationContext)
 
         pe.getPermissions()
 
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
-//        p = PredictTest(this)
+//        p = PredictIO(this)
 
 
         button.setOnCheckedChangeListener { _, isChecked ->

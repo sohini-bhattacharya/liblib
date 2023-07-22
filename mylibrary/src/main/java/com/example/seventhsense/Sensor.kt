@@ -22,7 +22,7 @@ import java.util.*
 //import androidx.core.content.ContextCompat.getSystemService
 
 @SuppressLint("NewApi")
-class SensorTest(context: Context) : SensorEventListener  {
+class Sensor(context: Context) : SensorEventListener  {
     lateinit var outputWriter: OutputStreamWriter
     lateinit var fileOutputStream: FileOutputStream
     var context1: Context = context
@@ -36,7 +36,7 @@ class SensorTest(context: Context) : SensorEventListener  {
     var y = 0.0f
     var z = 0.0f
 
-    var csv: CSVTest = CSVTest(context1)
+    var csv: CSV = CSV(context1)
 
     //    private lateinit var text: TextView
     var status: Boolean = false

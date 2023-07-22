@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("DEPRECATION")
-class WifiTest(context: Context) {
+class Wifi(context: Context) {
 
     var context1: Context = context
     lateinit var wifiManager: WifiManager
@@ -24,7 +24,7 @@ class WifiTest(context: Context) {
     lateinit var outputWriter: OutputStreamWriter
     private lateinit var wifiLock: WifiManager.WifiLock
 
-    var csv: CSVTest = CSVTest(context1)
+    var csv: CSV = CSV(context1)
 
     var status: Boolean = false
 

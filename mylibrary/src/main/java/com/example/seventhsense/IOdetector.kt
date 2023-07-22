@@ -1,6 +1,6 @@
 package com.example.seventhsense
 
-class IOdetectorTest {
+class IOdetector {
 
 
 

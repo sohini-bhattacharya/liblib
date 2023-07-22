@@ -16,14 +16,14 @@ import java.io.OutputStreamWriter
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BLETest(context: Context) {
+class BLE(context: Context) {
     var context1: Context = context
 
     lateinit var fileOutputStream: FileOutputStream
     lateinit var outputWriter: OutputStreamWriter
     var status: Boolean = false
 
-    var csv: CSVTest = CSVTest(context1)
+    var csv: CSV = CSV(context1)
 
     private val bluetoothAdapter: BluetoothAdapter by lazy {
         (context1?.getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter

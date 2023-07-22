@@ -8,7 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
-class PermissionTest(context: Context, activity: AppCompatActivity) {
+class Permissions(context: Context, activity: AppCompatActivity) {
     lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     var ForegroundPermission = false
     var WakePermission = false

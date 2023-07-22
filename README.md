@@ -12,7 +12,7 @@ Along with that, there are case specific classes and functions, ie. to record an
 
 <dl>
   <dt><span style="color:#FFC0CB">How to import the library?</span></dt>
-    <dd>In your build.gradle project file, ( please replace latest_version with 1.2.9 )
+    <dd>In your build.gradle project file, ( please replace latest_version with 1.3.0 )
 </dd>
 </dl>
 
@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
     ...
     override fun onCreate(savedInstanceState: Bundle?) {
     
+    ...
+    
     permissionClass = Permissions(applicationContext,this)
     wifiClass = Wifi(this)
     
@@ -56,6 +58,9 @@ class MainActivity : AppCompatActivity() {
     # similar use-cases for other sensor classes,
     # please go through the code for function call details for each class
     # all details will be documented soon in an organised manner
+
+    ...
+
     }
     
     }
@@ -76,6 +81,8 @@ class MainActivity : AppCompatActivity() {
     ...
     override fun onCreate(savedInstanceState: Bundle?) {
 
+    ...
+
     permissionClass = Permissions(applicationContext,this)
     locationClass = Location(applicationContext,this)
     
@@ -90,6 +97,9 @@ class MainActivity : AppCompatActivity() {
     # and can also be monitored using the logcat tag "LOCATION"
     
     #latitude, longitude, altitude, bearing, accuracy, speed, speedAccuracy
+
+    ...
+
     }
     
     }
@@ -109,6 +119,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var predictClass: PredictIO
     ...
     override fun onCreate(savedInstanceState: Bundle?) {
+
+    ...
     
     permissionClass = Permissions(applicationContext,this)
     predictClass = Predict(,this)
@@ -126,7 +138,9 @@ class MainActivity : AppCompatActivity() {
     
     # this pretrained model was trained on a limited data, 
     # the library will be updated soon with a better performing model.
-    
+
+    ...
+
     }
     
     }

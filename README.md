@@ -17,7 +17,11 @@ Along with that, there are case specific classes and functions, ie. to record an
 </dl>
 
 ``` kotlin
+dependencies {
+...
 implementation 'com.github.sohini-bhattacharya:seventhsense:{latest_version}'
+...
+}
 ```
 
 

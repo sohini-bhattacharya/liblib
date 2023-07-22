@@ -1,4 +1,4 @@
-package com.example.liblib
+package com.example.seventhsense
 
 import org.junit.Test
 

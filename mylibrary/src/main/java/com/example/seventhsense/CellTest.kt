@@ -1,10 +1,6 @@
 package com.example.seventhsense
 
-import android.app.Service
 import android.content.Context
-import android.hardware.SensorEventListener
-import android.net.wifi.WifiManager
-import android.os.Build
 import android.telephony.PhoneStateListener
 import android.telephony.TelephonyManager
 

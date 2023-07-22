@@ -5,9 +5,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
 import android.location.Location
 import android.location.LocationManager
 import android.provider.Settings

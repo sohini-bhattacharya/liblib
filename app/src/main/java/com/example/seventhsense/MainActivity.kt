@@ -1,35 +1,30 @@
-package com.example.liblib
+package com.example.seventhsense
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Switch
 import android.widget.TextView
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import com.example.liblib.R.id.permission
-import com.example.seventhsense.*
+import com.example.seventhsense.R.id.permission
 
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var text: TextView
+
     //    lateinit var s: SensorTest
 //    lateinit var b: BLETest
 //    lateinit var p: PredictTest
     lateinit var pe: PermissionTest
+
     //    lateinit var w: WifiTest
 //    lateinit var id: IDTest
     lateinit var loc: LocationTest
     lateinit var baro: BarometerTest
 //    lateinit var magneto: MagnetoTest
 
-//    lateinit var a: ActivityTest
+    //    lateinit var a: ActivityTest
     lateinit var ce: CellTest
 
     lateinit var pa: PressureAltTest
@@ -47,13 +42,13 @@ class MainActivity : AppCompatActivity() {
         text = findViewById(R.id.txt)
 //
 //        id = IDTest(this)
-        pe = PermissionTest(applicationContext,this)
+        pe = PermissionTest(applicationContext, this)
 //        w = WifiTest(this)
 
 //        a = ActivityTest(this)
 //        p = PredictTest(this)
 
-        pa = PressureAltTest(applicationContext,this)
+        pa = PressureAltTest(applicationContext, this)
 //        loc = LocationTest(applicationContext,this)
 
 //        baro = BarometerTest(applicationContext,this)
@@ -66,7 +61,6 @@ class MainActivity : AppCompatActivity() {
 
 
 //        baro.getBarometer()
-
 
 
 //        permissions.setOnCheckedChangeListener { _, isChecked ->
@@ -129,12 +123,11 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-
 //        s.stop(this)
 
     }
-
-
 }
+
+
+
 

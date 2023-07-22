@@ -1,4 +1,4 @@
-package com.example.liblib
+package com.example.seventhsense
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

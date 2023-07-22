@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace 'com.example.liblib'
+    namespace 'com.example.seventhsense'
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.liblib"
+        applicationId "com.example.seventhsense"
         minSdk 26
-        //noinspection ExpiringTargetSdkVersion
+        //noinspection ExpiredTargetSdkVersion,ExpiringTargetSdkVersion
         targetSdk 30
         versionCode 1
         versionName "1.0"
